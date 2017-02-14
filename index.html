@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <title>first page</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css\style.css">
 </head>
 <body>
     <div id="toolbar">
-        <div class="logo"><img src="selise.png" height="50" width="200"> </div>
+        <div class="logo"><img src="img\selise.png" height="50" width="200"> </div>
         <div>
-            <input type="text" id="myInput" onkeyup="myfunction()" placeholder="Search here" title="Search here">
+            <input type="text" id="myInput" onkeyup="Controller.myfunction()" placeholder="Search here" title="Search here">
           <!--  <input type="button" onclick="search(myInput.value)" value="Search" id="btn"> -->
         </div>
 
@@ -18,21 +18,21 @@
 <div class="content-body">
 
     <div class="div-float-left">
-        <button id="botu" onclick="window.Service.go()">ADD</button><br>
-        <input type="radio" class="statusButton" name="status" id="ap" checked onclick="all(this)"> All<br>
-        <input type="radio" class="statusButton" name="status" id="check" onclick="all(this)"> Check<br>
-        <input type="radio" class="statusButton" name="status" id="undone"  onclick="all(this)">Others<br>
+        <button id="botu" onclick="Controller.go()">ADD</button><br>
+        <input type="radio" class="statusButton" name="status" id="ap" checked onclick="Controller.all(this)"> All<br>
+        <input type="radio" class="statusButton" name="status" id="check" onclick="Controller.all(this)"> Check<br>
+        <input type="radio" class="statusButton" name="status" id="undone"  onclick="Controller.all(this)">Pending<br>
     </div>
 
          <div class="div-float-right">
              <div id="frm" style="display:none;">
 
                   <h1>Title</h1>
-                  <input type="text" id="tt" placeholder="title name" ><br>
+                  <input type="text" id="tt" placeholder="Title name here" ><br>
                   <h1>Description</h1>
                   <textarea rows="25" cols="100" id="des" placeholder="describe"></textarea><br>
-                 <button onclick="save(tt.value, des.value)">Save</button> &nbsp;&nbsp;
-                 <button onclick="Cancel()">Cancel</button>
+                 <button onclick="Controller.save(tt.value, des.value)">Save</button> &nbsp;&nbsp;
+                 <button onclick="Controller.Cancel()">Cancel</button>
 
              </div>
 
@@ -48,6 +48,8 @@
         <p class="footer-text">&copy;kanon</p>
         <a class="footer-more" href="#">More information</a>
     </footer>
-    <script src="service.js"></script>
+    <script src="js\service.js"></script>
+    <script src="js\control.js"></script>
+    <script src="js\config.js"></script>
 </body>
 </html>

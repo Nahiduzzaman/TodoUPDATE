@@ -5,7 +5,8 @@
     function Controller() {
 
         var vm = this;
-        var service = Service;
+        //debugger;
+        var service = window.Service;
 
         function go() {
             service.go();
