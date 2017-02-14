@@ -1,0 +1,88 @@
+
+
+#myInput {
+  width: 60%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 2px solid #ddd;
+  margin-top: 10px
+
+}
+        #btn {
+            padding: 14px 20px 14px 40px;
+        }
+        #add {
+            position: relative;
+            left: -150px;
+            top: 40px;
+            padding: 14px 20px 14px 20px;
+            color: green;
+
+        }
+		.logo {
+		    float: left;
+			padding-top: 10px;
+			padding-right: 10px;
+		}
+		.content-body {
+		    height: 800px;
+		    margin-top: 90px;
+        overflow-y: scroll;
+		}
+
+
+        .inline {
+            display: inline;
+        }
+        li {
+            list-style-type: none;
+        }
+
+        .footer-text {
+            display: inline;
+            float: left;
+            padding-left: 100px;
+        }
+        .footer-more {
+            text-decoration: none;
+            float: right;
+            padding-right: 100px
+        }
+		.div-float-left {
+		    float: left;
+		    width: 220px;
+		    height: 800px;
+		}
+        .div-float-right {
+            float: left;
+            height: 800px;
+        }
+       #botu {
+           padding: 25px;
+           margin-bottom: 25px;
+       }
+	   #tt {
+	       width: 95%;
+	       padding: 15px;
+         word-break: break-all;
+
+	   }
+        .chker {
+            float: right;
+            position: relative;
+            right: 20px;
+            margin: 0px;
+
+        }
+        .parent {
+            position: relative;
+            top: 5px;
+        }
+        .scale{
+          width: 800px;
+        }
+       .word-break{
+         width: 800px;
+         word-break: break-all;
+       }
+      
