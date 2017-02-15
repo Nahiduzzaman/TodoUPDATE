@@ -70,11 +70,11 @@
                 for (var i = 0; i < lul.length; i++) {
 
                     if (lul[i].done == false) {
-                        txt = incomplete(txt);
+                        txt = incomplete(txt,lul[i].title,lul[i].id,lul[i].des,e.id);
 
                     } else {
 
-                        txt = complete(txt);
+                        txt = complete(txt, lul[i].title, lul[i].id, lul[i].des, e.id);
                     }
 
                 }
@@ -83,13 +83,15 @@
                 for (var i = 0; i < lul.length; i++) {
                     if (lul[i].done == true) {
 
-                        txt = complete(txt);
+                        txt = complete(txt, lul[i].title, lul[i].id, lul[i].des, e.id);
                     }
                 }
 
             } else {
-
-                txt = incomplete(txt);
+                for (var i = 0; i < lul.length; i++) {
+                    if(lul[i].done==false)
+                    txt = incomplete(txt, lul[i].title, lul[i].id, lul[i].des, e.id);
+                }
 
             }
             txt += '</ul>';
@@ -98,33 +100,33 @@
             document.getElementById('frm').style.display = 'none';
         }
 
-        function complete(txt) {
+        function complete(txt,title,id,des,eid) {
 
             txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline"><strike>' +
-                           lul[i].title +
+                           title +
                            '</strike></h1>' +
                            '<p class="inline chker"><input type="checkbox" id="' +
-                           e.id +
+                           eid +
                            '" checked onchange="Service.done(this, ' +
-                           lul[i].id +
+                           id +
                            ')"/>Done</p></div><div>' +
                            '<br><p class="word-break">' +
-                           lul[i].des +
+                           des +
                            '</p></div></li>';
-            return text;
+            return txt;
         }
 
-        function incomplete(txt) {
+        function incomplete(txt, title, id, des, eid) {
             txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline">' +
-                           lul[i].title +
+                           title +
                            '</h1>' +
                            '<p class="inline chker"><input type="checkbox" id="' +
-                           e.id +
+                           eid +
                            '" onchange="Service.done(this ,' +
-                           lul[i].id +
+                           id +
                            ')"/>Done</p></div><div>' +
                            '<br><p class="word-break">' +
-                           lul[i].des +
+                           des +
                            '</p></div></li>';
             return txt;
         }
