@@ -5,8 +5,6 @@
 
         var vm = this;
         vm.error = 'Title is empty';
-
-
     }
 
     window.Config = new Config();
