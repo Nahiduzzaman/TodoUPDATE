@@ -27,6 +27,7 @@
                 data.des = y;
                 data.done = false;
                 data.id = Math.floor(Math.random() * 500);
+
                 document.getElementById('tt').value = '';
                 document.getElementById('des').value = '';
 
@@ -36,6 +37,10 @@
                 putData(p);
                 document.getElementById('frm').style.display = 'none';
                 var def = document.getElementById('ap');
+                document.getElementById('check').checked = false;
+                document.getElementById('undone').checked = false;
+                document.getElementById('ap').checked = true;
+                
                 all(def);
             }
         }
@@ -53,25 +58,25 @@
             var container = document.getElementById('shw');
             var txt = '<ul id="fix">';
             if (e.id == 'ap') {
-                for (var i = 0; i < lul.length; i++) {
-
-                    if (lul[i].done == false) 
-                        txt = incomplete(txt,lul[i].title,lul[i].id,lul[i].des,e.id);
-                     else 
-                       txt = complete(txt, lul[i].title, lul[i].id, lul[i].des, e.id);
-                }
+                lul.forEach(function (item, index) {
+                    if (item.done == true)
+                        txt = complete(txt, item.title, item.id, item.des, e.id);
+                    else 
+                        txt = incomplete(txt, item.title, item.id, item.des, e.id);
+                })
             } else if (e.id == 'check') {
          
-                for (var i = 0; i < lul.length; i++) {
-                    if (lul[i].done == true) 
-                        txt = complete(txt, lul[i].title, lul[i].id, lul[i].des, e.id);
-                }
+                lul.forEach(function (item, index) {
+                    if (item.done == true)
+                        txt = complete(txt, item.title, item.id, item.des, e.id);
+                })
 
             } else {
-                for (var i = 0; i < lul.length; i++) {
-                    if(lul[i].done==false)
-                        txt = incomplete(txt, lul[i].title, lul[i].id, lul[i].des, e.id);
-                }
+                
+                lul.forEach(function(item, index) {
+                    if(item.done==false)
+                        txt = incomplete(txt, item.title, item.id, item.des, e.id);
+                })
 
             }
             txt += '</ul>';
@@ -120,7 +125,6 @@
                 if (donelul[i].id == k) {
                     if (donelul[i].done == true) donelul[i].done = false;
                     else donelul[i].done = true;
-                    donelul = donelul.sort(sortByTitle);
                     putData(donelul);
                     all(e);
                     break;
@@ -161,7 +165,8 @@
         function sortByTitle(a, b) {
 
             if (a.title.toUpperCase() < b.title.toUpperCase()) return -1;
-            else return 1;
+            else if (a.title.toUpperCase() > b.title.toUpperCase()) return 1;
+            else return 0;
         }
 
         vm.go = go;
