@@ -5,9 +5,9 @@
     function Service() {
 
         var vm = this;
-        //debugger;
+        
         var items = [];
-        localStorage.setItem('items', JSON.stringify(items));
+        putData(items);
         function go() {
             
             document.getElementById('shw').style.display = 'none';
@@ -19,7 +19,7 @@
 
 
             if (x == null || x == "") {
-                alert('Title is empty');
+                alert(Config.error);
             } else {
 
                 var data = {};
@@ -30,14 +30,23 @@
                 document.getElementById('tt').value = '';
                 document.getElementById('des').value = '';
 
-                var p = JSON.parse(localStorage.getItem('items'));
+                var p = getData();
                 p.push(data);
                 p = p.sort(sortByTitle);
-                localStorage.setItem('items', JSON.stringify(p));
+                putData(p);
                 document.getElementById('frm').style.display = 'none';
                 var def = document.getElementById('ap');
                 all(def);
             }
+        }
+
+        function getData() {
+            var d = JSON.parse(localStorage.getItem('items'));
+            return d;
+        }
+
+        function putData(p) {
+            localStorage.setItem('items', JSON.stringify(p));
         }
 
         function Cancel() {
@@ -54,81 +63,33 @@
 
 
         function all(e) {
-            var lul = JSON.parse(localStorage.getItem('items'));
+            var lul = getData();
             var container = document.getElementById('shw');
             var txt = '<ul id="fix">';
             if (e.id == 'ap') {
                 for (var i = 0; i < lul.length; i++) {
 
                     if (lul[i].done == false) {
-                        txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline">' +
-                            lul[i].title +
-                            '</h1>' +
-                            '<p class="inline chker"><input type="checkbox" id="' +
-                            e.id +
-                            '" onchange="Service.done(this ,' +
-                            lul[i].id +
-                            ')"/>Done</p></div><div>' +
-                            '<br><p class="word-break">' +
-                            lul[i].des +
-                            '</p></div></li>';
+                        txt = incomplete(txt);
+
                     } else {
 
-                        txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline"><strike>' +
-                            lul[i].title +
-                            '</strike></h1>' +
-                            '<p class="inline chker"><input type="checkbox" id="' +
-                            e.id +
-                            '" checked onchange="Service.done(this, ' +
-                            lul[i].id +
-                            ')"/>Done</p></div><div>' +
-                            '<br><p class="word-break">' +
-                            lul[i].des +
-                            '</p></div></li>';
-
-
+                        txt = complete(txt);
                     }
 
                 }
             } else if (e.id == 'check') {
-                //debugger;
+         
                 for (var i = 0; i < lul.length; i++) {
                     if (lul[i].done == true) {
 
-                        txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline"><strike>' +
-                            lul[i].title +
-                            '</strike></h1>' +
-                            '<p class="inline chker"><input type="checkbox" id="' +
-                            e.id +
-                            '" checked onchange="Service.done(this, ' +
-                            lul[i].id +
-                            ')"/>Done</p></div><div>' +
-                            '<br><p class="word-break">' +
-                            lul[i].des +
-                            '</p></div></li>';
-                        // debugger;
-
+                        txt = complete(txt);
                     }
                 }
 
             } else {
 
-                for (var i = 0; i < lul.length; i++) {
-
-                    if (lul[i].done == false) {
-                        txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline">' +
-                            lul[i].title +
-                            '</h1>' +
-                            '<p class="inline chker"><input type="checkbox" id="' +
-                            e.id +
-                            '"  onchange="Service.done(this, ' +
-                            lul[i].id +
-                            ')" />Done</p></div><div>' +
-                            '<br><p class="word-break">' +
-                            lul[i].des +
-                            '</p></div></li>';
-                    }
-                }
+                txt = incomplete(txt);
 
             }
             txt += '</ul>';
@@ -137,17 +98,48 @@
             document.getElementById('frm').style.display = 'none';
         }
 
+        function complete(txt) {
+
+            txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline"><strike>' +
+                           lul[i].title +
+                           '</strike></h1>' +
+                           '<p class="inline chker"><input type="checkbox" id="' +
+                           e.id +
+                           '" checked onchange="Service.done(this, ' +
+                           lul[i].id +
+                           ')"/>Done</p></div><div>' +
+                           '<br><p class="word-break">' +
+                           lul[i].des +
+                           '</p></div></li>';
+            return text;
+        }
+
+        function incomplete(txt) {
+            txt += '<li id="filter"><div class="parent scale"><h1 id="hed" class="inline">' +
+                           lul[i].title +
+                           '</h1>' +
+                           '<p class="inline chker"><input type="checkbox" id="' +
+                           e.id +
+                           '" onchange="Service.done(this ,' +
+                           lul[i].id +
+                           ')"/>Done</p></div><div>' +
+                           '<br><p class="word-break">' +
+                           lul[i].des +
+                           '</p></div></li>';
+            return txt;
+        }
+
 
         function done(e, k) {
             document.getElementById('shw').style.display = 'none';
-            var donelul = JSON.parse(localStorage.getItem('items'));
+            var donelul = getData();
             //debugger;
             for (var i = 0; i < donelul.length; i++) {
                 if (donelul[i].id == k) {
                     if (donelul[i].done == true) donelul[i].done = false;
                     else donelul[i].done = true;
                     donelul = donelul.sort(sortByTitle);
-                    localStorage.setItem('items', JSON.stringify(donelul));
+                    putData(donelul);
                     all(e);
                     break;
                 }
@@ -183,8 +175,13 @@
         vm.done = done;
         vm.myfunction = myfunction;
         vm.all = all;
+        vm.getData = getData;
+        vm.putData = putData;
+        vm.complete = complete;
+        vm.incomplete = incomplete;
     }
 
     window.Service = new Service();
+    
 
 })(window);
